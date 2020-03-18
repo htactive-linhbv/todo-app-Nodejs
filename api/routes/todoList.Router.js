@@ -47,6 +47,23 @@ router.patch('/:idList',(req,res, next)=>{
     res.status(201).json({});
 })
 
+router.patch('/:idTasks/update',(req,res,next)=>{
+    const take = {  
+        id : req.body.id, 
+        listId : req.body.listId,
+        createdAt :req.body.createdAt,
+        title : req.body.title,
+        desc : req.body.desc,
+        order :req.body.order
+    }
+    arrTake.forEach((element, index) => {
+        if(element.id == req.body.id) {
+            arrTake[index] = take;
+        }
+    });
+    res.status(201).send("update thanh cong");
+})
+
 router.delete('/:idTasks',(req,res,next)=>{
     for(var i = arrTake.length - 1; i >= 0; i--) {
         if(arrTake[i].id === req.params.idTasks) {

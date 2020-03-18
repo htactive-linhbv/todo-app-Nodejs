@@ -25,30 +25,7 @@ function htmlElement(todos, dataList) {
     UlGroup.className = "list-group";
 
 
-    // let liGroup = document.createElement('li');
-    // liGroup.className = "list-group-item d-flex justify-content-between align-items-center";
-    // let spanGroup = document.createElement('span');
-    // spanGroup.className = "badge badge-primary badge-pill";
-    // let aGroup = document.createElement('a');
-    // let iGroup = document.createElement('i');
-    // iGroup.className = "far fa-trash-alt";
-
-
-
-
-    // let liGroup = document.createElement('li');
-    // liGroup.className = "list-group-item d-flex justify-content-between align-items-center";
-    // listGroup.innerHTML = data.title;
-    // let spanGroup = document.createElement('span');
-    // spanGroup.innerHTML = data.order;
-    // spanGroup.className = "badge badge-primary badge-pill";
-    // let aGroup = document.createElement('a');
-    // let iGroup = document.createElement('i');
-    // iGroup.className = "far fa-trash-alt";
-    // addDiv(liGroup, spanGroup);
-    // addDiv(liGroup, aGroup);
-    // addDiv(aGroup, iGroup);
-    // addDiv(UlGroup, liGroup);
+ 
     // xắp xếp
     let dataListTodo = dataList.sort(function (a, b) {
         return a.order - b.order;
@@ -65,21 +42,24 @@ function htmlElement(todos, dataList) {
         aGroup.className = "btn btn-danger";
         let btnGroup = document.createElement('button');
         btnGroup.className="btn btn-info";
+
+        
         // them su kien cap nhap
-        btnGroup.onclick = function (element) {
+        btnGroup.onclick = function () {
             fetch(`http://localhost:3000/api/v1/todolists/${element.id}/tasks/update`)
             .then((response) => {
               return response.json();
             })
             .then((data) =>{ 
               console.log(data);
-              addElementUpdate(data);
+              
+              createInputUpdate(data);
             });
         }
 
 
         
-        aGroup.onclick = function (dataListTodo) {
+        aGroup.onclick = function () {
             // thêm delete vào thẻ btn
             fetch(`http://localhost:3000/api/v1/todolists/${element.id}`, {
                 method: 'DELETE',
@@ -136,18 +116,6 @@ function htmlElement(todos, dataList) {
 
         }
         console.log(data);
-
-        //let formData = new FormData();
-        // formData.append("json", JSON.stringify(data));
-        // fetch(`http://localhost:3000/api/v1/todolists/${todos.id}/tasks`,
-        //     {
-        //         method: "POST",
-        //         body: formData
-        //     }).then(res=>{
-        //         return res.json();
-
-        //     }).then(res=> window.location.reload())
-
 
         fetch(`http://localhost:3000/api/v1/todolists/${todos.id}/tasks`, {
             method: 'post',
@@ -217,6 +185,172 @@ fetch('http://localhost:3000/api/v1/todolists/')
     });
 
 
+
+
+
+
+
+// update 
+
+
+
+function createInputUpdate(dataUpdate){
+    function createDiv(divClassName) {
+      let div = document.createElement('div');
+      div.className = divClassName;
+      return div;
+  }
+  
+  function addDiv(divCha, divCon) {
+      divCha.appendChild(divCon);
+  }
+
+  if(document.getElementById('divOld')!=null){
+    let divOld = document.getElementById('divOld');
+   divOld.parentNode.removeChild(divOld);
+  }
+
+  let divRender = document.getElementById('update');
+    
+
+    let divTong = createDiv("col-lg-8");
+        divTong.id="divOld";
+    let divListLb= createDiv('list-group');
+    let lbDivListLb = document.createElement('label');
+    lbDivListLb.innerHTML="update";
+    lbDivListLb.className="list-group-item list-group-item-action active";
+    addDiv(divListLb,lbDivListLb);
+    addDiv(divTong,divListLb);
+    let formGroup = document.createElement('form');
+    let divIdGroup = createDiv('form-group row ');
+    let lbDivIdGroup = document.createElement('label');
+    lbDivIdGroup.className = 'col-sm-2 col-form-label';
+    lbDivIdGroup.innerHTML= "ID:";
+    lbDivIdGroup.htmlFor="staticEmail";
+    divInputIdGroup= createDiv('col-sm-10');
+    ipDivInputIdGroup = document.createElement('input');
+    ipDivInputIdGroup.type="text";
+    ipDivInputIdGroup.className='form-control-plaintext';
+    ipDivInputIdGroup.value=dataUpdate.todoList.id;
+  
+    addDiv(divInputIdGroup,ipDivInputIdGroup);
+    addDiv(divIdGroup,lbDivIdGroup);
+    //addDiv(divIdGroup,lbDivListLb);
+    addDiv(divIdGroup,divInputIdGroup);
+
+    
+
+        let divTitleGroup = createDiv('form-group row ');
+        let lbDivTitleGroup = document.createElement('label');
+        lbDivTitleGroup.className = 'col-sm-2 col-form-label';
+        lbDivTitleGroup.innerHTML= "Title:";
+        lbDivTitleGroup.htmlFor="staticEmail";
+        divInputTitleGroup= createDiv('col-sm-10');
+        ipDivInputTitleGroup = document.createElement('input');
+        ipDivInputTitleGroup.type="text";
+        ipDivInputTitleGroup.className='form-control';
+        ipDivInputTitleGroup.value=dataUpdate.todoList.title;
+      
+        addDiv(divInputTitleGroup,ipDivInputTitleGroup);
+        addDiv(divTitleGroup,lbDivTitleGroup);
+        //addDiv(divTitleGroup,lbDivListLb);
+        addDiv(divTitleGroup,divInputTitleGroup);
+
+    
+        let divOrderGroup = createDiv('form-group row ');
+        let lbDivOrderGroup = document.createElement('label');
+        lbDivOrderGroup.className = 'col-sm-2 col-form-label';
+        lbDivOrderGroup.innerHTML= "Order:";
+        lbDivOrderGroup.htmlFor="staticEmail";
+        divInputOrderGroup= createDiv('col-sm-10');
+        ipDivInputOrderGroup = document.createElement('input');
+        ipDivInputOrderGroup.type="text";
+        ipDivInputOrderGroup.className='form-control';
+        ipDivInputOrderGroup.value=dataUpdate.todoList.order;
+      
+        addDiv(divInputOrderGroup,ipDivInputOrderGroup);
+        addDiv(divOrderGroup,lbDivOrderGroup);
+        //addDiv(divOrderGroup,lbDivListLb);
+        addDiv(divOrderGroup,divInputOrderGroup);
+
+    let divdescGroup = createDiv('form-group row ');
+        let lbDivdescGroup = document.createElement('label');
+        lbDivdescGroup.className = 'col-sm-2 col-form-label';
+        lbDivdescGroup.innerHTML= "desc:";
+        lbDivdescGroup.htmlFor="staticEmail";
+        divInputdescGroup= createDiv('col-sm-10');
+        ipDivInputdescGroup = document.createElement('input');
+        ipDivInputdescGroup.type="text";
+        ipDivInputdescGroup.className='form-control';
+        ipDivInputdescGroup.value=dataUpdate.todoList.desc;
+      
+        addDiv(divInputdescGroup,ipDivInputdescGroup);
+        addDiv(divdescGroup,lbDivdescGroup);
+        //addDiv(divdescGroup,lbDivListLb);
+        addDiv(divdescGroup,divInputdescGroup);
+
+    
+        let divlistIdGroup = createDiv('form-group row ');
+        let lbDivlistIdGroup = document.createElement('label');
+        lbDivlistIdGroup.className = 'col-sm-2 col-form-label';
+        lbDivlistIdGroup.innerHTML= "listId:";
+        lbDivlistIdGroup.htmlFor="staticEmail";
+        divInputlistIdGroup= createDiv('col-sm-10');
+        ipDivInputlistIdGroup = document.createElement('input');
+        ipDivInputlistIdGroup.type="text";
+        ipDivInputlistIdGroup.className='form-control';
+        ipDivInputlistIdGroup.value=dataUpdate.todoList.listId;
+      
+        addDiv(divInputlistIdGroup,ipDivInputlistIdGroup);
+        addDiv(divlistIdGroup,lbDivlistIdGroup);
+        //addDiv(divlistIdGroup,lbDivListLb);
+        addDiv(divlistIdGroup,divInputlistIdGroup);
+
+    let btnUpdate = document.createElement('button');
+    btnUpdate.className="btn btn-success";
+    btnUpdate.innerHTML='Update';
+   
+    btnUpdate.onclick=function(){
+        date = new Date();
+        dataTasksUpdate = {
+            id:dataUpdate.todoList.id,
+            listId:ipDivInputlistIdGroup.value,
+            title: ipDivInputTitleGroup.value,
+            createdAt: `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}-${date.getHours()}-${date.getMinutes()}`,
+            desc :ipDivInputdescGroup.value,
+            order : ipDivInputOrderGroup.value,
+    
+        }
+        console.log(dataTasksUpdate);
+        
+ 
+        fetch(`http://localhost:3000/api/v1/todolists/${dataUpdate.todoList.id}/update`, {
+            method: 'PATCH',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataTasksUpdate)
+        }).then(res => {res.json();
+            window.location.reload();
+        });
+    }
+
+
+    addDiv(formGroup,divIdGroup);
+    addDiv(formGroup,divTitleGroup);
+    addDiv(formGroup,divlistIdGroup);
+    addDiv(formGroup,divdescGroup);
+    addDiv(formGroup,divOrderGroup);
+
+
+    addDiv(divTong,formGroup);
+    addDiv(divTong,btnUpdate);
+
+  
+  addDiv(divRender,divTong);
+  
+  }
 
 
    
