@@ -12,7 +12,7 @@ let arrList = [
     {
         id: "2",
         createdAt: "2020-03-05T18:35:01.269Z",
-        name: "DOING."
+        name: "DOING"
     },
     {
         id: "3",
@@ -32,7 +32,11 @@ router.get('/:idList', (req, res, next) => {
     const todoList = arrList.find(x=>x.id == id);
     res.status(200).json({todoList});
 })
-
+router.get('/:idTasks/tasks/update', (req, res, next) => {
+    const id = req.params.idTasks;
+    const todoList = arrTake.find(x=>x.id == id);
+    res.status(200).json({todoList});
+})
 router.get('/:idList/tasks',(req,res,next)=>{
     const id = req.params.idList;
     const listTasks = arrTake.filter(x=>x.listId == id);
@@ -51,16 +55,18 @@ router.delete('/:idTasks',(req,res,next)=>{
     }
     res.send('delete thanh cong');
     
+    
 })
 
 router.post('/:idList/tasks',(req,res,next)=>{
+    
     const take = {
-        id : Math.random() ,
+        id : req.body.id ,
         listId : req.params.idList,
-        createdAt : req.body.createdAt,
+        createdAt :req.body.createdAt,
         title : req.body.title,
-        desc : req.body.desc,
-        order : req.body.order
+       // desc : req.body.desc,
+        order : Math.floor(Math.random() * 101)
     }
     arrTake.push(take);
     res.status(201).json(take);

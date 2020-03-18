@@ -3,6 +3,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const todoListRouter = require('./api/routes/todoList.Router');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 app.get('/',(req,res,next)=>{
     res.status(200).json({
@@ -11,7 +12,7 @@ app.get('/',(req,res,next)=>{
 })
 
 //middleware
-
+app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
