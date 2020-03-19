@@ -22,4 +22,13 @@ app.use('/api/v1/todolists',todoListRouter);
 
 
 
-app.listen(port,()=> console.log(`server running on port: ${port}`));
+//app.listen(port,()=> console.log(`server running on port: ${port}`));
+
+
+const server = app.listen(port, () => console.log(`server running on port: ${port}`))
+
+process.on('SIGTERM', () => {
+  server.close(() => {
+    console.log('Process terminated')
+  })
+})
