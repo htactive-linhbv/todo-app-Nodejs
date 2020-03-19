@@ -38,6 +38,10 @@ function htmlElement(todos, dataList) {
         let spanGroup = document.createElement('span');
         spanGroup.innerHTML = element.order;
         spanGroup.className = "badge badge-primary badge-pill";
+
+        let divBtn =createDiv("");
+        
+
         let aGroup = document.createElement('button');
         aGroup.className = "btn btn-danger";
         let btnGroup = document.createElement('button');
@@ -80,8 +84,13 @@ function htmlElement(todos, dataList) {
         addDiv(liGroup, spanGroup);
         
         addDiv(btnGroup,iBtnGroup);
-        addDiv(liGroup,btnGroup);
-        addDiv(liGroup, aGroup);
+
+       btnGroup.style.marginRight= "10px";
+        addDiv(divBtn,btnGroup);
+        addDiv(divBtn,aGroup);
+        addDiv(liGroup,divBtn);
+        // addDiv(liGroup,btnGroup);
+        // addDiv(liGroup, aGroup);
         
         addDiv(aGroup, iGroup);
         addDiv(UlGroup, liGroup);
