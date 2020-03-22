@@ -1,18 +1,13 @@
 const express = require('express');
 const router = express.Router();
-
-const fs = require('fs');
 const arrList = require('../../dataList.json')
 const arrTakes = require('../../dataTasks.json')
-
-
-
-console.log(arrTakes);
-
-
+const validateTask = require('../middlewares/validator.Middleware');
 
 
 router.get('/', (req, res, next) => {
+    console.log(req.user);
+    
     res.status(200).json(
         arrList
     );
@@ -61,12 +56,12 @@ router.delete('/:idTasks',(req,res,next)=>{
            arrTakes.splice(i, 1);
         }
     }
-    res.send('delete thanh cong');
+    res.status(201).send('delete thanh cong');
     
     
 })
 
-router.post('/:idList/tasks',(req,res,next)=>{
+router.post('/:idList/tasks',validateTask,(req,res)=>{
     
     const take = {
         id : req.body.id ,

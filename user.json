@@ -1,0 +1,14 @@
+[
+    {
+        "userId":"1",
+        "userName":"abc",
+        "pas":"123123",
+        "password":"$2b$10$hAschTvTEKoh4trEPgz9COJgBV/OUk0WdB4T3zKpxLN9KO3C5fizq"
+    },
+    {
+        "userId":"2",
+        "userName":"linh123",
+        "pas":"123456",
+        "password":"$2b$10$ltVDid.G5iK2CNWnzZ40/./YeaDd5MQnOtwg5ofysIfob.MBP.GSy"
+    }
+]
