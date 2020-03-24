@@ -1,11 +1,15 @@
-const arrTakes = require('../../../dataTasks.json');
-const fs = require('fs')
-function save(arrTakes){
-    fs.writeFile();
- }
+const mongoose = require('mongoose');
 
-module.exports ={
-    arrTakes: arrTakes,
 
-}
 
+const takeSchema = mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
+    listId :String,
+    createdAt: String,
+    title: String,
+    desc: String,
+    order: Number
+});
+
+
+module.exports = mongoose.model('Tasks',takeSchema);

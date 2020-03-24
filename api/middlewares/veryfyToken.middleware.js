@@ -6,6 +6,8 @@ function veryfiToken(req,res,next){
   //FORMAT OF TOKEN
   // authorization: bearer <access_token>
   const bearerHeader = req.headers['authorization'];
+  
+  
 
   if (typeof bearerHeader !== 'undefined') {
     // xoá space trong mã token
@@ -16,7 +18,7 @@ function veryfiToken(req,res,next){
     //
     jwt.verify(token, 'shhhhh', function(err, user) {
       if(err) return res.sentStatus(403);
-     req.user = users;
+      req.user = user;
       next();
     });
     

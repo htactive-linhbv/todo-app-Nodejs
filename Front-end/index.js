@@ -50,7 +50,7 @@ function htmlElement(todos, dataList) {
 
         // them su kien cap nhap
         btnGroup.onclick = function () {
-            fetch(`http://localhost:3000/api/v1/todolists/${element.id}/tasks/update`)
+            fetch(`http://localhost:3000/api/v1/todolists/${element._id}/tasks/update`)
                 .then((response) => {
                     return response.json();
                 })
@@ -65,12 +65,14 @@ function htmlElement(todos, dataList) {
 
         aGroup.onclick = function () {
             // thêm delete vào thẻ btn
-            fetch(`http://localhost:3000/api/v1/todolists/${element.id}`, {
+            fetch(`http://localhost:3000/api/v1/todolists/${element._id}`, {
                 method: 'DELETE',
             })
-                .then(res => res.text()) // or res.json()
-                .then(res => {
-                    console.log(res);
+                // .then(response=>{
+                //     return response.json();
+                // })
+                // or res.json()
+                .then(()=>{
                     window.location.reload();
                 })
 
@@ -122,7 +124,7 @@ function htmlElement(todos, dataList) {
             title: value,
             createdAt: `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}-${date.getHours()}-${date.getMinutes()}`,
             id: Math.floor(Math.random() * 101).toString(),
-
+            
         }
         console.log(data);
 
@@ -223,7 +225,7 @@ function createInputUpdate(dataUpdate) {
     ipDivInputIdGroup = document.createElement('input');
     ipDivInputIdGroup.type = "text";
     ipDivInputIdGroup.className = 'form-control-plaintext';
-    ipDivInputIdGroup.value = dataUpdate.todoList.id;
+    ipDivInputIdGroup.value = dataUpdate.todoList._id;
 
     addDiv(divInputIdGroup, ipDivInputIdGroup);
     addDiv(divIdGroup, lbDivIdGroup);
@@ -316,7 +318,7 @@ function createInputUpdate(dataUpdate) {
         console.log(dataTasksUpdate);
 
 
-        fetch(`http://localhost:3000/api/v1/todolists/${dataUpdate.todoList.id}/update`, {
+        fetch(`http://localhost:3000/api/v1/todolists/${dataUpdate.todoList._id}/update`, {
             method: 'PATCH',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -324,8 +326,8 @@ function createInputUpdate(dataUpdate) {
             },
             body: JSON.stringify(dataTasksUpdate)
         }).then(res => {
-            res.json();
-            window.location.reload();
+           // res.json();
+          //  window.location.reload();
         });
     }
 
